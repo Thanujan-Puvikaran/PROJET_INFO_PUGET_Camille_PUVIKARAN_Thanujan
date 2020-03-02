@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan", "PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan.csproj", "{473101C7-00D3-4CB5-A2F1-D690854BA392}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{473101C7-00D3-4CB5-A2F1-D690854BA392}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{473101C7-00D3-4CB5-A2F1-D690854BA392}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{473101C7-00D3-4CB5-A2F1-D690854BA392}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{473101C7-00D3-4CB5-A2F1-D690854BA392}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D161FDB-BA17-4770-9234-3146A34D46CE}
+	EndGlobalSection
+EndGlobal
