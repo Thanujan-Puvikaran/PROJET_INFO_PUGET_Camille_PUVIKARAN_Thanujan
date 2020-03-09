@@ -112,33 +112,34 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
 
             this.type = finding_type(file);
             this.header = new byte[this.offset];
-            Console.WriteLine("\n Header \n");
+            //Console.WriteLine("\n Header \n");
             for (int i = 0; i < 14; i++)
             {
-                Console.Write(file[i] + " ");
+                //Console.Write(file[i] + " ");
                 this.header[i] = file[i];
             }
-            for (int i = 0; i < 54; i++)
-            {
-                Console.Write(header[i]+" ");
-            }
+            //for (int i = 0; i < 54; i++)
+            //{
+            //    Console.Write(header[i]+" ");
+            //}
 
             //Métadonnées de l'image
             Console.WriteLine("\n HEADER INFO \n");
             for (int i = 14; i < this.offset; i++)
             {
-                Console.Write(file[i] + " ");
+                //Console.Write(file[i] + " ");
                 this.header[i] = file[i];
             }
 
             this.width = Taille(newLength(file, this.type[0]));
             this.height = Taille(newLength(file, this.type[1]));
 
-            Pixel2[,] Matrix = new Pixel2[this.height, this.width];
+            Pixel2[,] Matrix = new Pixel2[this.width, this.height];
             this.m = new Matrice(Matrix);
+            //Console.WriteLine("this.Width = " + this.width);
+            //Console.WriteLine("this.Height = " + this.height);
 
 
-	
 
 
 
@@ -157,7 +158,7 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
                     //(i - this.offset) / (3 * height)
                     //((j - i) / 3)
                 }
-                Console.WriteLine();
+               // Console.WriteLine();
             }
 
 
@@ -169,6 +170,8 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
 
             byte[] returned = new byte[this.header.Length + (Mat.GetLength(0) * Mat.GetLength(1) * 3)];
             //Console.Write("sdkdhksdhf");
+            //Console.WriteLine("Mat.GetLength(0) = " + Mat.GetLength(0));
+            //Console.WriteLine("Mat.GetLength(1) = " + Mat.GetLength(1));
             byte[] a = Convertir_Int_To_Endian(Mat.GetLength(0));//type[1]
             byte[] b = Convertir_Int_To_Endian(Mat.GetLength(1));//type[0]
             for (int i = 0; i < this.header.Length; i++)
@@ -180,7 +183,7 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
                 }
                 else if (i == type[1] || i == type[1] + 1 || i == type[1] + 2 || i == type[1] + 3)
                 {
-                    returned[i] = a[i - type[1]];
+                    returned[i] = b[i - type[1]];
                     //Console.Write(returned[i] + " ");
                 }
                 else
@@ -219,14 +222,14 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
             //{
             //    //Console.Write(returned[i]+" ");
             //}
-            for(int i = 18; i < 22; i++)
-            {
-                Console.Write(returned[i]+" ");
-                Console.Write(header[i] + " ");
-            }
-            Console.WriteLine();
-            
+            //for(int i = 18; i < 22; i++)
+            //{
+            //    Console.Write(returned[i]+" ");
+            //    Console.Write(header[i] + " ");
+            //}
+            //Console.WriteLine();
 
+            Console.WriteLine("ARRIVEE !");
             File.WriteAllBytes(file, returned);
         }
         public byte[] Convertir_Int_To_Endian(int value)
@@ -244,108 +247,108 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
             }
             return tab;
         }
-        public int verification_angle(int angle)
-        {
-            while ((angle < 0) || (angle > 360))
-            {
-                if (angle < 0)
-                {
-                    angle += 360;
-                }
-                else if (angle > 360)
-                {
-                    angle -= 360;
-                }
-            }
-            return angle;
+        //public int verification_angle(int angle)
+        //{
+        //    while ((angle < 0) || (angle > 360))
+        //    {
+        //        if (angle < 0)
+        //        {
+        //            angle += 360;
+        //        }
+        //        else if (angle > 360)
+        //        {
+        //            angle -= 360;
+        //        }
+        //    }
+        //    return angle;
 
-        }
-        public bool verification(Pixel2[,] mat, int i, int j)
-        {
-            bool flag = true;
-            if (mat[i, j] == null)
-            {
-                flag = false;
-            }
-            return flag;
-        }
-        public Pixel2[,] rotate_with_angles(int angle)
-        {
-            //int[] centre = new int[2];
-            //centre[0] = this.width / 2;
-            //centre[1] = this.height / 2;
-            Pixel2[,] Mat2 = new Pixel2[10000, 10000];//Convert.ToInt32(Math.Sqrt(Math.Pow(height, 2) + Math.Pow(width, 2)))];
-            angle = verification_angle(angle);
-            for (double i = 0; i < Mat2.GetLength(0); i++)
-            {
-                for (double j = 0; j < Mat2.GetLength(1); j++)
-                {
-                    byte b = 0;
-                    byte g = 0;
-                    byte r = 0;
-                    int x = Convert.ToInt32((i) * (Math.Cos(angle)) + (j) * Math.Sin(angle));
-                    int y = Convert.ToInt32(-(i) * Math.Sin(angle) + (j) * (Math.Cos(angle)));
-                    if (((x >= 0) && (x < m.Matrix.GetLength(0))) && (y >= 0) && (y < m.Matrix.GetLength(1)))
-                    {
+        //}
+        //public bool verification(Pixel2[,] mat, int i, int j)
+        //{
+        //    bool flag = true;
+        //    if (mat[i, j] == null)
+        //    {
+        //        flag = false;
+        //    }
+        //    return flag;
+        //}
+        //public Pixel2[,] rotate_with_angles(int angle)
+        //{
+        //    //int[] centre = new int[2];
+        //    //centre[0] = this.width / 2;
+        //    //centre[1] = this.height / 2;
+        //    Pixel2[,] Mat2 = new Pixel2[10000, 10000];//Convert.ToInt32(Math.Sqrt(Math.Pow(height, 2) + Math.Pow(width, 2)))];
+        //    angle = verification_angle(angle);
+        //    for (double i = 0; i < Mat2.GetLength(0); i++)
+        //    {
+        //        for (double j = 0; j < Mat2.GetLength(1); j++)
+        //        {
+        //            byte b = 0;
+        //            byte g = 0;
+        //            byte r = 0;
+        //            int x = Convert.ToInt32((i) * (Math.Cos(angle)) + (j) * Math.Sin(angle));
+        //            int y = Convert.ToInt32(-(i) * Math.Sin(angle) + (j) * (Math.Cos(angle)));
+        //            if (((x >= 0) && (x < m.Matrix.GetLength(0))) && (y >= 0) && (y < m.Matrix.GetLength(1)))
+        //            {
 
-                        b = m.Matrix[x, y].Blue;
-                        g = m.Matrix[x, y].Green;
-                        r = m.Matrix[x, y].Red;
-                        Mat2[(int)i, (int)j] = new Pixel2(b, g, r);
-                    }
+        //                b = m.Matrix[x, y].Blue;
+        //                g = m.Matrix[x, y].Green;
+        //                r = m.Matrix[x, y].Red;
+        //                Mat2[(int)i, (int)j] = new Pixel2(b, g, r);
+        //            }
                     
-                    if (Mat2[x, y]== null)
-                    {
-                        //if (((x > 0) && (x < m.Matrix.GetLength(0)-1))&&(((y > 0) && (y < m.Matrix.GetLength(1)-1))))
-                        // {
-                        if ((x == 0) || (y == 0) || (x == Mat2.GetLength(0)) || (y == Mat2.GetLength(1)))
-                        {
-                            Mat2[x, y] = new Pixel2(0, 0, 0);
-                        }
-                        else
-                        {
-                            if ((verification(Mat2, x - 1, y) == true) && (verification(Mat2, x, y - 1) == true))
-                            {
+        //            if (Mat2[x, y]== null)
+        //            {
+        //                //if (((x > 0) && (x < m.Matrix.GetLength(0)-1))&&(((y > 0) && (y < m.Matrix.GetLength(1)-1))))
+        //                // {
+        //                if ((x == 0) || (y == 0) || (x == Mat2.GetLength(0)) || (y == Mat2.GetLength(1)))
+        //                {
+        //                    Mat2[x, y] = new Pixel2(0, 0, 0);
+        //                }
+        //                else
+        //                {
+        //                    if ((verification(Mat2, x - 1, y) == true) && (verification(Mat2, x, y - 1) == true))
+        //                    {
 
-                                b = Convert.ToByte((m.Matrix[x - 1, y].Blue + m.Matrix[x, y - 1].Blue) / 2);
-                                g = Convert.ToByte((m.Matrix[x - 1, y].Green + m.Matrix[x, y - 1].Green) / 2);
-                                r = Convert.ToByte((m.Matrix[x - 1, y].Red + m.Matrix[x, y - 1].Red) / 2);
-                                Mat2[x, y] = new Pixel2(b, g, r);
-                            }
-                            else if ((verification(Mat2, x - 1, y) == true) && (verification(Mat2, x, y - 1) == false))
-                            {
+        //                        b = Convert.ToByte((m.Matrix[x - 1, y].Blue + m.Matrix[x, y - 1].Blue) / 2);
+        //                        g = Convert.ToByte((m.Matrix[x - 1, y].Green + m.Matrix[x, y - 1].Green) / 2);
+        //                        r = Convert.ToByte((m.Matrix[x - 1, y].Red + m.Matrix[x, y - 1].Red) / 2);
+        //                        Mat2[x, y] = new Pixel2(b, g, r);
+        //                    }
+        //                    else if ((verification(Mat2, x - 1, y) == true) && (verification(Mat2, x, y - 1) == false))
+        //                    {
 
-                                b = Convert.ToByte(m.Matrix[x - 1, y].Blue);
-                                g = Convert.ToByte(m.Matrix[x - 1, y].Green);
-                                r = Convert.ToByte(m.Matrix[x - 1, y].Red);
-                                Mat2[x, y] = new Pixel2(b, g, r);
-                            }
-                            else if ((verification(Mat2, x - 1, y) == false) && (verification(Mat2, x, y - 1) == true))
-                            {
+        //                        b = Convert.ToByte(m.Matrix[x - 1, y].Blue);
+        //                        g = Convert.ToByte(m.Matrix[x - 1, y].Green);
+        //                        r = Convert.ToByte(m.Matrix[x - 1, y].Red);
+        //                        Mat2[x, y] = new Pixel2(b, g, r);
+        //                    }
+        //                    else if ((verification(Mat2, x - 1, y) == false) && (verification(Mat2, x, y - 1) == true))
+        //                    {
 
-                                b = Convert.ToByte(m.Matrix[x, y - 1].Blue);
-                                g = Convert.ToByte(m.Matrix[x, y - 1].Green);
-                                r = Convert.ToByte(m.Matrix[x, y - 1].Red);
-                                Mat2[x, y] = new Pixel2(b, g, r);
-                            }
-                            else
-                            {
-                                Mat2[x, y] = new Pixel2(0, 0, 0);
-                            }
-                        }
+        //                        b = Convert.ToByte(m.Matrix[x, y - 1].Blue);
+        //                        g = Convert.ToByte(m.Matrix[x, y - 1].Green);
+        //                        r = Convert.ToByte(m.Matrix[x, y - 1].Red);
+        //                        Mat2[x, y] = new Pixel2(b, g, r);
+        //                    }
+        //                    else
+        //                    {
+        //                        Mat2[x, y] = new Pixel2(0, 0, 0);
+        //                    }
+        //                }
                         
-                        //}
+        //                //}
                         
-                    }
+        //            }
 
-                    //Console.WriteLine(j);
+        //            //Console.WriteLine(j);
 
-                }
-                //Console.WriteLine(i);
-            }
+        //        }
+        //        //Console.WriteLine(i);
+        //    }
             
-            return Mat2;
-        }
+        //    return Mat2;
+        //}
 
         public Pixel2[,] negatif()
         {
@@ -370,19 +373,19 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
             int[] centre = new int[2];
             centre[0] = this.width / 2;
             centre[1] = this.height / 2;
-            Pixel2[,] Mat4 = new Pixel2[m.Matrix.GetLength(1), m.Matrix.GetLength(0)];
+            Pixel2[,] Mat4 = new Pixel2[m.Matrix.GetLength(0), m.Matrix.GetLength(1)];
             for (int i = 0; i < m.Matrix.GetLength(0); i++)
             {
                 for (int j = 0; j < m.Matrix.GetLength(1); j++)
                 {
                     if (((i <= this.height / 2) && (j >= this.width / 2)) || ((i >= this.height / 2) && (j <= this.width / 2)))
                     {
-                        Mat4[i, j] = new Pixel2(m.Matrix[this.height - 1 - i, this.width - j - 1].Blue, m.Matrix[this.height - 1 - i, this.width - j - 1].Green, m.Matrix[this.height - 1 - i, this.width - j - 1].Red);
+                        Mat4[i, j] = new Pixel2(m.Matrix[this.width - i - 1, this.height - 1 - j].Blue, m.Matrix[this.width - i - 1, this.height - 1 - j].Green, m.Matrix[this.width - i - 1, this.height - 1 - j].Red);
                     }
                     else if (((i < this.height / 2) && (j < this.width / 2)) || ((i > this.height / 2) && (j > this.width / 2)))
                     {
 
-                        Mat4[i, j] = new Pixel2(m.Matrix[this.height - 1 - i, this.width - j - 1].Blue, m.Matrix[this.height - 1 - i, this.width - j - 1].Green, m.Matrix[this.height - 1 - i, this.width - j - 1].Red);
+                        Mat4[i, j] = new Pixel2(m.Matrix[this.width - i - 1, this.height - 1 - j].Blue, m.Matrix[this.width - i - 1, this.height - 1 - j].Green, m.Matrix[this.width - i - 1, this.height - 1 - j].Red);
 
                     }
                 }
@@ -395,9 +398,9 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
             Pixel2[,] Mat6 = new Pixel2[m.Matrix.GetLength(1), m.Matrix.GetLength(0)];
             Pixel2[,] MatP = new Pixel2[m.Matrix.GetLength(1), m.Matrix.GetLength(0)];
 
-            for (int i = 0; i < m.Matrix.GetLength(0); i++)
+            for (int i = 0; i < m.Matrix.GetLength(1); i++)
             {
-                for (int j = 0; j < m.Matrix.GetLength(1); j++)
+                for (int j = 0; j < m.Matrix.GetLength(0); j++)
                 {
                     if (((i <= this.height / 2) && (j >= this.width / 2)) || ((i >= this.height / 2) && (j <= this.width / 2)))
                     {
@@ -412,9 +415,9 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
                 }
             }
 
-            for (int i = 0; i < m.Matrix.GetLength(0); i++)
+            for (int i = 0; i < m.Matrix.GetLength(1); i++)
             {
-                for (int j = 0; j < m.Matrix.GetLength(1); j++)
+                for (int j = 0; j < m.Matrix.GetLength(0); j++)
                 {
                     Mat6[i, j] = new Pixel2(MatP[this.height - 1 - i, j].Blue, MatP[this.height - 1 - i, j].Green, MatP[this.height - 1 - i, j].Red);
                 }
@@ -462,14 +465,43 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
 
         public Pixel2[,] Inverser_Image_axe_ordonnee()
         {
-            Pixel2[,] Mat5 = new Pixel2[m.Matrix.GetLength(0), m.Matrix.GetLength(1)];
-            for (int i = 0; i < m.Matrix.GetLength(0); i++)
+            Pixel2[,] Mat5;
+            int a = 0;
+            if (m.Matrix.GetLength(0) < m.Matrix.GetLength(1))
             {
-                for (int j = 0; j < m.Matrix.GetLength(1); j++)
+                a = m.Matrix.GetLength(1);
+            }
+            else if(m.Matrix.GetLength(0) > m.Matrix.GetLength(1))
+            {
+                a = m.Matrix.GetLength(0);
+            }
+            else
+            {
+                a = m.Matrix.GetLength(0);
+            }
+            Mat5 = new Pixel2[a,a];
+            for (int i = 0; i < a; i++)
+            {
+                for (int j = 0; j < a; j++)
                 {
-                    Mat5[i, j] = new Pixel2(m.Matrix[i, this.width - j - 1].Blue, m.Matrix[i, this.width - j - 1].Green, m.Matrix[i, this.width - j - 1].Red);
+                    if (i<m.Matrix.GetLength(0)&& j < m.Matrix.GetLength(1))
+                    {
+                        Mat5[j, i] = new Pixel2(m.Matrix[i, j].Blue, m.Matrix[i, j].Green, m.Matrix[i, j].Red);
+                    }
+                    else
+                    {
+                        Mat5[j, i] = new Pixel2(0, 0, 0);
+                    }
                 }
             }
+            //Pixel2[,] Mat6 = new Pixel2[a, a];
+            //for (int i = 0; i < a; i++)
+            //{
+            //    for (int j = 0; j < a; j++)
+            //    {
+            //        Mat6[i, j] = new Pixel2(Mat5[i, a - j - 1].Blue, Mat5[i, a - j - 1].Green, Mat5[i, a - j - 1].Red);
+            //    }
+            //}
             return Mat5;
         }
         public Pixel2[,] Inverser_Image_axe_abscisse()
@@ -661,33 +693,46 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
         }
         public Pixel2[,] Rotation(float angle)
         {
+            float angle_in_radian = Convert.ToSingle((angle * Math.PI)/180);
             int a = (int)Math.Sqrt(Math.Pow(m.Matrix.GetLength(0), 2)+ Math.Pow(m.Matrix.GetLength(1), 2));
-            int px = (3*a-m.Matrix.GetLength(0))/2;
-            int py =(3*a-m.Matrix.GetLength(1))/2;
-            Pixel2[,] Mat =new Pixel2[3*a,3*a];
-            for(int i = 0; i < m.Matrix.GetLength(0); i++)
+            Pixel2[,] Mat =new Pixel2[2*a,2*a];
+            int px = (Mat.GetLength(0) - m.Matrix.GetLength(0)) / 2;
+            int py = (Mat.GetLength(1) - m.Matrix.GetLength(1)) / 2;
+
+
+            for (int i = 0; i < m.Matrix.GetLength(0); i++)
             {
                 for(int j = 0; j < m.Matrix.GetLength(1); j++)
                 {
-                    int x = Convert.ToInt32((i) * (Math.Cos(angle)) + (j) * Math.Sin(angle));
-                    int y = Convert.ToInt32(-(i) * Math.Sin(angle) + (j) * (Math.Cos(angle)));
+                    int x = Convert.ToInt32((i) * (Math.Cos(angle_in_radian)) + (j) * Math.Sin(angle_in_radian));
+                    int y = Convert.ToInt32(-(i) * Math.Sin(angle_in_radian) + (j) * (Math.Cos(angle_in_radian)));
                     byte b = m.Matrix[i, j].Blue;
                     byte g = m.Matrix[i, j].Green;
                     byte r = m.Matrix[i, j].Red;
-                    if(angle==0||angle==360)
+
+
+                    if (angle==0||angle==360)
                     {
-                        Mat[Math.Abs(x+px), Math.Abs(y+py)] = new Pixel2(b, g, r);
+                        Mat[Math.Abs(x+px), Math.Abs(y)+py] = new Pixel2(b, g, r);
                     }                    
                     else if (angle < 90 && angle>0)
                     {
-                        Mat[Math.Abs(x+px), Math.Abs(y+py)] = new Pixel2(b, g, r);
+                        Mat[Math.Abs(x + px), Math.Abs(y + py)] = new Pixel2(b, g, r);
                     }
-                    else
+                    else if (angle < 180 && angle >= 90)
                     {
-                        /*py/8-*/
-                        Mat[Math.Abs(x+px), Math.Abs(y+py)] = new Pixel2(b, g, r);
+                        Mat[x + px, y + 2 * py] = new Pixel2(b, g, r);
                     }
-                   
+                    else if (angle < 270 && angle >= 180)
+                    {
+                        Mat[x + 2 * px, y + 2* py] = new Pixel2(b, g, r);
+                    }
+                    else if (angle < 360 && angle >= 270)
+                    {
+                        Mat[x+2*px, y+py] = new Pixel2(b, g, r);
+                    }
+
+
                 }
             }
             for (int i = 0; i < Mat.GetLength(0); i++)
@@ -697,16 +742,89 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
 
                     if (Mat[i, j] == null)
                     {
-                        
-                        byte b = m.Matrix[i, j].Blue;
-                        byte g = m.Matrix[i, j].Green;
-                        byte r = m.Matrix[i, j].Red;
                         Mat[i, j] = new Pixel2(0, 0,0);
+                    }
+                }
+            }
+            for(int i = 1; i < Mat.GetLength(0)-1; i++)
+            {
+                for(int j = 1; j < Mat.GetLength(1)-1; j++)
+                {
+                    if ((Mat[i, j].Blue == 0) && (Mat[i, j].Green==0) && (Mat[i, j].Red==0))
+                    {
+                        byte b = Convert.ToByte((Mat[i-1,j-1].Blue + Mat[i,j-1].Blue+ Mat[i-1,j].Blue+ Mat[i+1,j-1].Blue+ Mat[i-1,j+1].Blue+ Mat[i,j+1].Blue+ Mat[i+1,j].Blue+ Mat[i+1,j+1].Blue)/8);
+                        byte g = Convert.ToByte((Mat[i - 1, j - 1].Green + Mat[i, j - 1].Green + Mat[i - 1, j].Green + Mat[i + 1, j - 1].Green + Mat[i - 1, j + 1].Green + Mat[i, j + 1].Green + Mat[i + 1, j].Green + Mat[i + 1, j + 1].Green)/8);
+                        byte r = Convert.ToByte((Mat[i - 1, j - 1].Red + Mat[i, j - 1].Red + Mat[i - 1, j].Red + Mat[i + 1, j - 1].Red + Mat[i - 1, j + 1].Red + Mat[i, j + 1].Red + Mat[i + 1, j].Red + Mat[i + 1, j + 1].Red)/8);
+                        Mat[i, j] = new Pixel2(b, g, r);
                     }
                 }
             }
 
             return Mat;
+        }
+        /// <summary>
+        /// Cette méthode permet d'appliquer une matrice de convolution à la matrice image.
+        /// 
+        /// Pour chaque pixel de la matrice image, on va multiplier sa valeur (pixel rouge, bleu, et vert) par chacune des valeurs
+        /// de la matrice de convolution, et sommer chaque multiplication.
+        /// </summary>
+        /// <param name="convo">matrice de convolution utilisée sur la matrice image</param>
+        /// <returns>une nouvelle matrice image qui a été modifiée</returns>
+        public Pixel2[,] Convolution(int[,] convo)
+        {
+            int sommeRed, sommeBlue, sommeGreen;
+            int lahauteur = m.Matrix.GetLength(0);
+            int lalongueur = m.Matrix.GetLength(1);
+            Pixel2 element;
+            int test;
+
+            int tailleConvo = 0;
+            for (int a = 0; a < convo.GetLength(0); a++)
+            {
+                for (int b = 0; b < convo.GetLength(1); b++)
+                {
+                    tailleConvo += convo[a, b];
+                }
+            }
+
+            Pixel2[,] result = new Pixel2[m.Matrix.GetLength(0), m.Matrix.GetLength(1)];
+
+            for (int i = 0; i < m.Matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < m.Matrix.GetLength(1); j++)
+                {
+                    sommeRed = 0;
+                    sommeBlue = 0;
+                    sommeGreen = 0;
+                    element = m.Matrix[i, j];
+
+                    for (int k = 0; k < convo.GetLength(0); k++)
+                    {
+                        for (int m = 0; m < convo.GetLength(1); m++)
+                        {
+                            if ((i == 0) && (k == 0)) k++;
+                            if ((j == 0) && (m == 0)) m++;
+
+                            if ((k == 2) && (i == lahauteur)) test = 1;
+
+                            else if ((m == 2) && (j == lalongueur)) test = 2;
+
+                            else
+                            {
+                                sommeRed += element.Red * convo[k, m];
+                                sommeBlue += element.Blue * convo[k, m];
+                                sommeGreen += element.Green * convo[k, m];
+                            }
+                        }
+                    }
+
+                    // on a le résultat pour un pixel, on le remet dans la nouvelle matrice image :
+                    // blue green red
+                    result[i, j] = new Pixel2((byte)(sommeBlue / tailleConvo), (byte)(sommeGreen / tailleConvo), (byte)(sommeRed / tailleConvo));
+                }
+            }
+
+            return result;
         }
     }
 }
