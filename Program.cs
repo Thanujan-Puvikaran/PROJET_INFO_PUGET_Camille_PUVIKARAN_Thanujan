@@ -138,44 +138,206 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
         static void Main(string[] args)
         {
             
-            MyImage a = new MyImage("./Images/lena.bmp");
-            //MyImage b = new MyImage("./Images/lena.bmp");
-            //Complexe c = new Complexe(0.3,0.4);
-            //Console.WriteLine(b.M.Matrix.GetLength(0));
-            //Fractale_image_cache sup = new Fractale_image_cache();
-            //Pixel2[,] cache=sup.codage(b.M.Matrix,a.M.Matrix);
-            //Pixel2[,] r=sup.decodage(cache);
-            //Pixel2[,] r2=sup.decodage(cache);
-            //byte[] tab=sup.From_int_to_byte(120);
-            //Pixel2[,] Mat16 = sup.Mandelbrot(100);
-            //Pixel2[,] Mat17 = sup.Julia(100);
-            //Pixel2[,] Mat18 = sup.Newton(10);
-            //Pixel2[,] Mat19 = Approximation_PI(400,400);
-            //Pixel2[,] Mat20 = sup.Histogramme(a.M.Matrix);
-            //sup.From_fractale_toFile(Mat20, "./Images/TEST200.bmp");
-            //sup.From_fractale_toFile(Mat17, "./Images/TEST170.bmp");
+            MyImage a = new MyImage("./Images/new.bmp");
+            Fractale_image_cache sup = new Fractale_image_cache();
+            Console.WriteLine("Vous avez accès à un certain nombre de fonction en particulier : ");
+            Pixel2[,] mat;
+            if (a.Flag_modification == true)
+            {
+                ConsoleKeyInfo cki;
+                Console.WindowHeight = 41;
+                Console.WindowWidth = 100;
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("Menu :\n"
+                                     + "Mode négatif, taper 1 :\n"
+                                     + "Rotation 180, taper 2 : \n"
+                                     + "Inverser l'image par rapport à l'axe des ordonnees, taper 3 : \n"
+                                     + "Rotation 90, taper 4 : \n"
+                                     + "Inverser l'image par rapport à l'axe des abscisses, taper 5 : \n"
+                                     + "Rotation 270, taper 6 : \n"
+                                     + "Aggrandissement, taper 7 : \n"
+                                     + "Reduction, taper 8 : \n"
+                                     + "Bleutage, taper 9 : \n"
+                                     + "Rotation pour n'importe qu'elle angle, taper 10 : \n"
+                                     + "Convolution, taper 11 : \n"
+                                     + "Sélectionnez l'exercice désiré ");
+                    int exo = SaisieNombre();
+                    switch (exo)
+                    {
+                        #region
+                        case 1:
+                            Pixel2[,] Mat3 = a.negatif();
+                            mat = Mat3;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 2:
+                            Pixel2[,] Mat4 = a.Rotation180();
+                            mat = Mat4;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 3:
+                            Pixel2[,] Mat5 = a.Inverser_Image_axe_ordonnee();
+                            mat = Mat5;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 4:
+                            Pixel2[,] Mat6 = a.Rotation90();
+                            mat = Mat6;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 5:
+                            Pixel2[,] Mat7 = a.Inverser_Image_axe_abscisse();
+                            mat = Mat7;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 6:
+                            Pixel2[,] Mat8 = a.Rotation270();
+                            mat = Mat8;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 7:
+                            Console.Write("Donner la valeur de zoom attendu : ");
+                            int zoom = Convert.ToInt32(Console.ReadLine());
+                            Pixel2[,] Mat9 = a.Aggrandissement(zoom);
+                            mat = Mat9;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 8:
+                            Console.Write("Donner la valeur de zoom attendu, si voulez une image de taille divisé par 2 mettez 2 : ");
+                            int zoom2 = Convert.ToInt32(Console.ReadLine());
+                            Pixel2[,] Mat11 = a.reduction(zoom2);
+                            mat = Mat11;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 9:
+                            Pixel2[,] Mat12 = a.bleutage();
+                            mat = Mat12;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 10:
+                            int value = Convert.ToInt32(Console.ReadLine());
+                            Pixel2[,] Mat13 = a.Rotation(value);
+                            mat = Mat13;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+                        case 11:
+                            Console.WriteLine("Donner la taille de la matrice de convolution : ");
+                            int taille = Convert.ToInt32(Console.ReadLine()); 
+                            int[,] convolution = new int[taille, taille];
+                            Console.WriteLine("donner les valeurs de cette matrice :");
+                            for(int i = 0; i < convolution.GetLength(0); i++)
+                            {
+                                for(int j=0;j< convolution.GetLength(1); j++)
+                                {
+                                    convolution[i, j] = Convert.ToInt32(Console.ReadLine());
+                                }
+                            }
+                            Pixel2[,] Mat19 = a.Floutage_etc(convolution);
+                            mat = Mat19;
+                            a.From_Image_To_File(mat, "./Images/TEST202.bmp");
+                            break;
+
+
+                            #endregion
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("Tapez Escape pour sortir ou un numero d exo");
+                    cki = Console.ReadKey();
+
+                } while (cki.Key != ConsoleKey.Escape);
+                Console.Read();
+            }
+            else
+            {
+
+                if (a.Flag_QR_code == false)
+                {
+                    ConsoleKeyInfo cki;
+                    Console.WindowHeight = 41;
+                    Console.WindowWidth = 100;
+                    Console.Clear();
+                    Console.WriteLine("Menu :\n"
+                                     + "Fractale de Mandelbrot, taper 1 : \n"
+                                     + "Fractale de Julia, taper 2 : \n"
+                                     + "Codage decodage, taper 3  : \n"
+                                     + "Histogramme, taper 4  : \n"
+                                     + "Newton , pas encore pret, taper 5:\n"
+                                     + "approximation de pi , pas encore pret, taper 6:\n"
+                                     + "Sélectionnez l'exercice désiré ");
+                    int exo = SaisieNombre();
+                    switch (exo)
+                    {
+                        #region
+                        case 1:
+                            Console.Write("Donner le nombre d'itération avec au minimum 100 ");
+                            int nombre_iteration = Convert.ToInt32(Console.ReadLine());
+                            Pixel2[,] Mat16 = sup.Mandelbrot(nombre_iteration);
+                            Console.WriteLine();
+                            sup.From_fractale_toFile(Mat16, "./Images/TEST200.bmp");
+                            break;
+                        case 2:
+                            Console.Write("Donner le nombre d'itération, 100 étant la meilleur valeur : ");
+                            int nombre_iteration2 = Convert.ToInt32(Console.ReadLine());
+                            Console.Write("Donner la partie reelle du complexe, une bonne valeur est -0.7927 : ");
+                            double pr = Convert.ToDouble(Console.ReadLine());
+                            Console.WriteLine();
+                            Console.Write("Donner la partie imaginaire du complexe, une bonne valeur est 0.1609  : ");
+                            double pi = Convert.ToDouble(Console.ReadLine());
+                            //Complexe c = new Complexe(-0.7927, 0.1609);
+                            Complexe c = new Complexe(pr, pi);
+                            Pixel2[,] Mat17 = sup.Julia(nombre_iteration2, c);
+                            sup.From_fractale_toFile(Mat17, "./Images/TEST200.bmp");
+                            break;
+                        case 4:
+                            Pixel2[,] Mat20 = sup.Histogramme(a.M.Matrix);
+                            sup.From_fractale_toFile(Mat20, "./Images/TEST200.bmp");
+                            break;
+                        case 3:
+
+                            MyImage b = new MyImage("./Images/lena.bmp");
+                            Pixel2[,] cache = sup.codage(a.M.Matrix, b.M.Matrix);
+                            Pixel2[,] r = sup.decodage(cache);
+                            Pixel2[,] r2 = sup.decodage(cache);
+                            sup.From_fractale_toFile(cache, "./Images/TEST400.bmp");
+                            sup.From_fractale_toFile(r, "./Images/TEST401.bmp");
+                            sup.From_fractale_toFile(r2, "./Images/TEST402.bmp");
+                            break;
+                        case 5:
+                            
+                            break;
+                        case 6:
+                            
+                            break;
+                            #endregion
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine("Tapez Escape pour sortir ou un numero d exo");
+                    cki = Console.ReadKey();
+                    while (cki.Key != ConsoleKey.Escape) ;
+                    //Pixel2[,] Mat18 = sup.Newton(10);
+                    //Pixel2[,] Mat19 = Approximation_PI(400, 400);
+                }
+
+                else
+                {
+                    //QR code function
+                }
+            } 
+
             //for (int i = 0; i < sup.Header.Length; i++)
             //{
             //    Console.Write(sup.Header[i] + " ");
             //    if (i == 13) Console.WriteLine();
             //}
-            //Pixel2[,] Mat3 = a.negatif();
-            //Pixel2[,] Mat4 = a.Rotation180();
-            //Pixel2[,] Mat5 = a.Inverser_Image_axe_ordonnee(); 
-            //Pixel2[,] Mat6 = a.Rotation90();
-            //Pixel2[,] Mat7 = a.Inverser_Image_axe_abscisse();//doesnt
-            //Pixel2[,] Mat8 = a.Rotation270();
-            //Pixel2[,] Mat9 = a.Aggrandissement(2);
             //Console.WriteLine(a.M.Matrix.GetLength(0));
             //Console.Write(Mat9.GetLength(0));
-            
-            //Pixel2[,] Mat11 = a.reduction(8);
-            //Pixel2[,] mat=new Pixel2[a.M.Matrix.GetLength(0), a.M.Matrix.GetLength(1)];
-            //int[,] convolution = new int[5, 5] { {1,4,6,4,1 }, {4,16, 24, 16, 4 }, {6,24,36,24,6 }, { 4, 16, 24, 16, 4 }, { 1, 4, 6, 4, 1 } };
-            //Pixel2[,] test = a.Rotation(34);
 
-            //Pixel2[,] Mat12 = a.bleutage();
-            //Pixel2[,] Mat13 = a.Rotation(359);
+            //Pixel2[,] mat=new Pixel2[a.M.Matrix.GetLength(0), a.M.Matrix.GetLength(1)];
+
+
+
             //for (int i=0;i< a.M.Matrix.GetLength(0); i++)
             //{
             //    for(int j = 0; j < a.M.Matrix.GetLength(1); j++)
@@ -243,7 +405,7 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
             //}
             //Console.Write("Donner le type : ");
             //string type = Console.ReadLine();
-            //Pixel2[,] Mat19 = a.Floutage_etc(convolution);
+
             //byte[] tab = new byte[4];
             //a.Convertir_Int_To_Endian(512);
             //for(int i=0; i < 4; i++)
@@ -252,9 +414,16 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
             //    Console.Write(tab[i] + " ");
             //}
 
-            a.From_Image_To_File(a.M.Matrix, "./Images/TEST202.bmp");
+            
             //sup.From_fractale_toFile(Mat5, "./Images/TEST130.bmp");
             Console.ReadLine();
         }
+        static int SaisieNombre()
+        {
+            int saisie = Convert.ToInt32(Console.ReadLine());
+            return saisie;
+        }
+
     }
 }
+    
