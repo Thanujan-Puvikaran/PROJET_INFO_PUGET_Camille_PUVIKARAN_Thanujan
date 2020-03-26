@@ -18,7 +18,9 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
         private byte[] header;
         private int width;
         private int color;
-
+        private bool flag_modification = false;
+        private bool flag_QR_code = false;
+        private static int compteur=1;
         //private string Myfile;
         private Matrice m;//afin de faire les modifications a partir des fonction de MyImage
 
@@ -27,10 +29,20 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
         {
 
             ReadFile(Myfile);
-
+            compteur++;
         }
 
         // properties
+        public bool Flag_QR_code
+        {
+            get => this.flag_QR_code;
+            set => this.flag_QR_code = value;
+        }
+        public bool Flag_modification
+        {
+            get => this.flag_modification;
+            set => this.flag_modification = value;
+        }
         public int[] Type
         {
             get => this.type;
@@ -178,24 +190,51 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
             //}
             //m.Matrix[36, 0] = new Pixel2(255,255,0);
             //Console.WriteLine(compteur1);
-            Console.Write("Que voulez vous faire, voulez vous utiliser des fonctions du type modification ou juste afficher l'image "+"\n"+"d image pre-existante ou voulez une fractale ou encore un histogramme,");
-            Console.WriteLine();
-            Console.Write("si  vous voulez une modification d'image veuillez taper modification sinon tapez autre : ");
-            string verification = Console.ReadLine();
-            if (verification == "modification")
+            if (compteur != 2)
             {
-                int compteur = 0;
-                for (int i = 0; i < m.Matrix.GetLength(1); i++)
+                Console.Write("Que voulez vous faire, voulez vous utiliser des fonctions du type modification ou juste afficher l'image " + "\n" + "d image pre-existante ou voulez une fractale ou encore un histogramme,");
+                Console.WriteLine();
+                Console.Write("si  vous voulez une modification d'image (modification d'image n'inclut pas caché image) veuillez taper modification sinon tapez autre : ");
+                string verification = Console.ReadLine();
+                if (verification == "modification")
                 {
-                    for (int j = 0; j < m.Matrix.GetLength(0); j++)
+                    this.flag_modification = true;
+                    int compteur = 0;
+                    for (int i = 0; i < m.Matrix.GetLength(1); i++)
                     {
+                        for (int j = 0; j < m.Matrix.GetLength(0); j++)
+                        {
 
-                        m.Matrix[j, i] = new Pixel2(file[this.header.Length + compteur], file[this.header.Length + compteur + 1], file[this.header.Length + compteur + 2]);
-                        compteur = compteur + 3;
+                            m.Matrix[j, i] = new Pixel2(file[this.header.Length + compteur], file[this.header.Length + compteur + 1], file[this.header.Length + compteur + 2]);
+                            compteur = compteur + 3;
+                        }
+
                     }
-
+                    m.Matrix = Remodelage();
                 }
-                m.Matrix = Remodelage();
+                else
+                {
+                    Console.Write("Qr_code ? si oui tapez true sinon false  :");
+                    string a = Console.ReadLine();
+                    if (a == "true")
+                    {
+                        flag_QR_code = true;
+                    }
+                    else
+                    {
+                        int compteur = 0;
+                        for (int i = 0; i < m.Matrix.GetLength(0); i++)
+                        {
+                            for (int j = 0; j < m.Matrix.GetLength(1); j++)
+                            {
+
+                                m.Matrix[i, j] = new Pixel2(file[this.header.Length + compteur], file[this.header.Length + compteur + 1], file[this.header.Length + compteur + 2]);
+                                compteur = compteur + 3;
+                            }
+
+                        }
+                    }
+                }
             }
             else
             {
@@ -205,11 +244,12 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
                     for (int j = 0; j < m.Matrix.GetLength(1); j++)
                     {
 
-                        m.Matrix[i, j] = new Pixel2(file[this.header.Length + compteur], file[this.header.Length + compteur + 1], file[this.header.Length + compteur + 2]);
-                        compteur = compteur + 3;
+                       m.Matrix[i, j] = new Pixel2(file[this.header.Length + compteur], file[this.header.Length + compteur + 1], file[this.header.Length + compteur + 2]);
+                       compteur = compteur + 3;
                     }
 
                 }
+                
             }
             Console.WriteLine("Clear");
 
