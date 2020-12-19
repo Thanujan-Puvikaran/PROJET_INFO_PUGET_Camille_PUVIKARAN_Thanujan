@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 
@@ -8,7 +8,6 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
     {
         //attributes
         Pixel2[,] matrice;
-        private Complexe c;
         private byte[] header = new byte[54];
         private int length;
         private int height;
@@ -33,11 +32,6 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
         {
             get => this.header;
             set => this.header = value;
-        }
-        public Complexe C
-        {
-            get => this.c;
-            set => this.c = value;
         }
         public Pixel2[,] Matrice
         {

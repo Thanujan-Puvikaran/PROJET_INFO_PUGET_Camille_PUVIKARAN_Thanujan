@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
+﻿namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
 {
-    class Pixel2
+    /// <summary>
+    /// There will be no comments in this class because it's obvious
+    /// </summary>
+    public class Pixel2
     {
         // attributes
         private byte red;

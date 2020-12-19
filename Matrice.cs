@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
+﻿namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
 {
-    class Matrice
+    /// <summary>
+    /// No comments because it's obvious
+    /// </summary>
+    public class Matrice
     {
         // attributes
         private Pixel2[,] matrix;
@@ -18,12 +15,12 @@ namespace PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan
         }
 
         // properties
-        public Pixel2 [,] Matrix
+        public Pixel2[,] Matrix
         {
             get => this.matrix;
             set
             {
-                matrix = value;    
+                matrix = value;
             }
         }
     }
