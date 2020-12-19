@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\PROJET_INFO_PUGET_Camille_PUVIKARAN_Thanujan.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -45,12 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fractale.cs" />
+    <Compile Include="Complexe.cs" />
+    <Compile Include="Fractale_image_cache.cs" />
+    <Compile Include="GenericGF.cs" />
+    <Compile Include="GenericGFPoly.cs" />
     <Compile Include="Matrice.cs" />
     <Compile Include="MyImage.cs" />
     <Compile Include="Pixel2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QRCode %281%29.cs" />
+    <Compile Include="ReedSolomonAlgorithm.cs" />
+    <Compile Include="ReedSolomonDecoder.cs" />
+    <Compile Include="ReedSolomonEncoder.cs" />
+    <Compile Include="Segment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
